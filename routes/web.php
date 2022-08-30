@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\home;
+use App\Http\Controllers\upload;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+
+Route::get('/', home::class);
+
+
+
+// image.upload
+
+Route::post('images/upload', upload::class);
+// Route::post('images/upload', [upload::class, 'test']);
