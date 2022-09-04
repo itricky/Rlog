@@ -92,10 +92,10 @@
                                             {{ $userJobInfo_resault->job_end_day }}
                                             {{ $userJobInfo_resault->job_status == 'y' ? '在職中' : '' }}
                                         </div>
-                                    </div>
+                                    </div><br>
 
-                                    <div class="mb-2 row">
-                                        <label for="company_name" class="col-sm-1 col-form-label">公司名稱:</label>
+                                    <div class="mb-4 row">
+                                        <label for="company_name" class="col-sm-1 col-form-label">公司名稱</label>
                                         <div class="col-sm-3">
                                             <input type="text" class="form-control" id="company_name" name="company_name"
                                                 value="{{ $userJobInfo_resault->company_name }}">
@@ -103,15 +103,15 @@
                                     </div>
 
                                     <div class="mb-2 row">
-                                        <label for="job_title" class="col-sm-1 col-form-label">職稱:</label>
+                                        <label for="job_title" class="col-sm-1 col-form-label">職稱</label>
                                         <div class="col-sm-3">
                                             <input type="text" class="form-control" id="job_title" name="job_title"
                                                 value="{{ $userJobInfo_resault->job_title }}">
                                         </div>
                                     </div>
 
+                                    <label for="job_start_day" class="col-sm-1 col-form-label">在職時間</label>
                                     <div class="input-group mb-3">
-                                        <label for="job_start_day" class="col-sm-1 col-form-label">在職時間:</label>
                                         <input type="date" name="job_start_day" class="form-control"
                                             placeholder="Username" aria-label="Username"
                                             value="{{ $userJobInfo_resault->job_start_day }}">
@@ -132,7 +132,7 @@
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="job_description" class="form-label">工作內容:</label>
+                                        <label for="job_description" class="form-label">工作內容</label>
                                         <textarea class="form-control text-capitalize" id="job_description" name="job_description" rows="7">{{ $userJobInfo_resault->job_description }}</textarea>
                                     </div>
 
