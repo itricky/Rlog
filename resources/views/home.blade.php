@@ -3,201 +3,185 @@
 @section('title', '首頁')
 
 @section('content')
-{{-- @php
-    dd($userInfo_resault->name);
-@endphp --}}
-<style type="text/css">
-    .image {
-        margin-top: 50px;
-        width: 200px;
-        height: 240px;
-        border-radius: 20px;
-    }
-    blockquote {
-        margin: 1em;
-        padding: .5em;
-        border-left: 5px solid #d2ccb4;
-        /* border-left-style: groove; */
-        background-color: #f6ebc1;
-        border-radius: 10px;
-    }
+    <style type="text/css">
+        .image {
+            margin-top: 50px;
+            width: 200px;
+            height: 240px;
+            border-radius: 20px;
+        }
 
-    blockquote p {
-        margin: 0;
-    }
-    .carStyle {
-        border-radius: 10px;
-    }
-    hr{
-        border: 1px solid #8E44AD;
-    }
-</style>
+        blockquote {
+            margin: 1em;
+            padding: .5em;
+            border-left: 5px solid #d2ccb4;
+            /* border-left-style: groove; */
+            background-color: #f6ebc1;
+            border-radius: 10px;
+        }
 
-{{-- <div class="container-fluid" style="min-height: 1024px; margin-top: 50px; background-color: rgb(176, 176, 176)"> --}}
-<div class="container-fluid" style="min-height: 1024px; min-width:650px; margin-top: 25px; ">
-    <div class="d-flex justify-content-center">
-        {{-- <div class="w-75 p-3" style="background-color: #eee;"> --}}
-            <div class="container w-75 p-3">
-                <div class="card shadow-lg p-3 mb-5 bg-white rounded" style="mix-width: 100%;">
+        blockquote p {
+            margin: 0;
+        }
 
-                    {{-- 自介紹 --}}
-                    <div class="row g-0"  style="background-color: rgb(179, 168, 168);">
-                        <div class="container text-center">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <img class="image" src="{{ asset('/images/IMG_001.jpg') }}" alt="大頭照">
-                                </div>
+        .carStyle {
+            border-radius: 10px;
+        }
 
-                                <div class="col">
-                                    <p style="margin-top: 50px;">
+        hr {
+            border: 1px solid #8E44AD;
+        }
+    </style>
+
+    <div class="container-fluid" style="min-height: 1024px; min-width:300px; margin-top: 25px; ">
+        <div class="d-flex justify-content-center">
+            <div class="container w-80 p-3">
+                <form action="{{ url('home') }}" method="post">
+                    <div class="card shadow-lg p-3 mb-5 bg-white rounded" style="mix-width: 100%;">
+                        @csrf
+                        {{-- 自介紹 --}}
+                        <div class="row g-0" style="background-color: rgb(179, 168, 168);">
+                            <div class="container text-center">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <img class="image" src="{{ asset('/images/IMG_001.jpg') }}" alt="大頭照">
+                                    </div>
+                                    <div class="col">
+                                        <p style="margin-top: 50px;">
                                         <h1>
                                             <i class="bi bi-heart-pulse-fill"></i>&nbsp;
-                                            {{ $userInfo_resault->name }}
+                                            {{ $userInfo_resault->name ?? '' }}
                                         </h1>
-                                        <p style=" text-align:left;  margin-left: 50px;">
-                                            姓名：{{ $userInfo_resault->name }}
+                                        <p style=" text-align:left; margin-left: 50px;">
+                                            <span>姓名： </span><input type="text" id="name" name="name"
+                                                value="{{ $userInfo_resault->name ?? '' }}">
                                         </p>
-
-                                        <p style=" text-align:left;  margin-left: 50px;">
-                                            電話：{{ $userInfo_resault->phone }}
+                                        <p style=" text-align:left; margin-left: 50px;">
+                                            <span>電話： </span><input type="text" id="phone" name="phone"
+                                                value="{{ $userInfo_resault->phone ?? '' }}">
                                         </p>
-
-                                        <p style=" text-align:left;  margin-left: 50px;">
-                                            地址：{{ $userInfo_resault->address }}
+                                        <p style=" text-align:left; margin-left: 50px;">
+                                            <span>地址：</span><input type="text" id="address" name="address"
+                                                style="width: 70%" value="{{ $userInfo_resault->address ?? '' }}">
                                         </p>
-                                        <textarea style="height:100px; max-width:85%; width:100%;" readonly>
-進步只是不想退步
-                                        </textarea>
-
-                                    </p>
+                                        <textarea id="description" name="description" cols="40" rows="5"
+                                            style="height:80px; max-width:85%; width:80%; resize:none;">{{ $userInfo_resault->description ?? '' }}</textarea>
+                                        </p>
+                                    </div>
                                 </div>
+                                <br><br>
                             </div>
-                            <br><br>
                         </div>
-                    </div>
-                    <hr>
+                        <hr>
 
-                    {{-- 工作經歷 --}}
-                    <h3>
-                        工作經歷
-                        <small class="text-muted">With faded secondary text</small>
-                    </h3>
-                    <div class="row g-0 carStyle" style="background-color: rgb(226, 225, 225);">
-                        <div class="container">
-                            <blockquote>
-                                <p style="float:right;  text-align:right;">2017/06 - 在職中</p>
-                                <p>
-                                    公司名稱: 台盈資訊科技有限公司
-                                    <br>
-                                    職稱：   IT人員                 <br>
-                                </p>
+                        {{-- 工作經歷 --}}
+                        <h3>
+                            工作經歷
+                            <small class="text-muted">_Work Experience</small>
+                        </h3>
+                        <br>
+                        <div class="row g-0 carStyle" style="background-color: rgb(226, 225, 225);">
+                            <div class="container">
+                                <blockquote>
+                                    <div class="position-relative">
+                                        <div class="position-absolute top-0 end-0">
+                                            {{ $userJobInfo_resault->job_start_day }}
+                                            @if ($userJobInfo_resault->job_start_day && $userJobInfo_resault->job_end_day)
+                                                ~
+                                            @endif
+                                            {{ $userJobInfo_resault->job_end_day }}
+                                            {{ $userJobInfo_resault->job_status == 'y' ? '在職中' : '' }}
+                                        </div>
+                                    </div>
 
-                                工作內容：<br>
-<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" style="resize:none; height:200px;"  onkeyup="autogrow(this);" readonly>
-1. 公司系統維運( Linux_CentOS or Ubuntu or Debian、NAS、VMware ESXi、Proxmox、windows)
-2. 網站架設LAMP( Linux + Apache + MySQL + PHP ) 及 維運
-3. 機房維運
-4. 使用 Bash、PHP、Mysql、Bat 處理各項維運程式(如備份)
-5. GCP雲服務
-</textarea>
-                            </blockquote>
+                                    <div class="mb-2 row">
+                                        <label for="company_name" class="col-sm-1 col-form-label">公司名稱:</label>
+                                        <div class="col-sm-3">
+                                            <input type="text" class="form-control" id="company_name" name="company_name"
+                                                value="{{ $userJobInfo_resault->company_name }}">
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-2 row">
+                                        <label for="job_title" class="col-sm-1 col-form-label">職稱:</label>
+                                        <div class="col-sm-3">
+                                            <input type="text" class="form-control" id="job_title" name="job_title"
+                                                value="{{ $userJobInfo_resault->job_title }}">
+                                        </div>
+                                    </div>
+
+                                    <div class="input-group mb-3">
+                                        <label for="job_start_day" class="col-sm-1 col-form-label">在職時間:</label>
+                                        <input type="date" name="job_start_day" class="form-control"
+                                            placeholder="Username" aria-label="Username"
+                                            value="{{ $userJobInfo_resault->job_start_day }}">
+                                        <span class="input-group-text"> ~ </span>
+                                        <input type="date" name="job_end_day" class="form-control" placeholder="Server"
+                                            aria-label="Server" value="{{ $userJobInfo_resault->job_end_day }}">
+                                    </div>
+
+                                    <div class="input-group mb-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="job_status"
+                                                name="job_status"
+                                                {{ $userJobInfo_resault->job_status == 'y' ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="gridCheck">
+                                                在職中
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="job_description" class="form-label">工作內容:</label>
+                                        <textarea class="form-control text-capitalize" id="job_description" name="job_description" rows="7">{{ $userJobInfo_resault->job_description }}</textarea>
+                                    </div>
+
+                                </blockquote>
+                            </div>
                         </div>
-                    </div>
-                    <hr>
+                        <hr>
 
-                    {{-- 自傳 --}}
-                    <h3>
-                        簡歷
-                        <small class="text-muted">With faded secondary text</small>
-                    </h3>
-                    <div class="row g-0 carStyle"  style="background-color: rgb(226, 225, 225)">
-                        <div class="container text-center">
-                            <blockquote>
-<textarea class="form-control" id="exampleFormControlTextarea1"
-            rows="3" style="resize:none; height:900px; overflow-y:hidden "
-                onkeyup="autogrow(this);" readonly>
-
-    您好，我是鄭勝元，畢業於 玄奘大學 資訊管理學系
-
-    大學期間，只有在服務業打工過，在完全沒有經驗的情況下，有幸畢業後找到人生第一間資訊產業公司工作
-
-    當時的我，沒有任何實物經驗
-    對程式、系統環境、設備到機房，一竅不通的我，有幸進到公司，開始了程式學習之路
-
-    在第一份工作上
-        第一次接觸到除了windows以外的系統 CentOS Linux
-        撰寫Shell Script自動化腳本，定期備份定期執行程式
-        幫客戶處理網路環境
-        架設實體網路VPN(公司機房及異地機房VPN)
-        以及大大小小的3C設備的問題
-
-    第二份工作上，開始管理網站及設備相關工作
-        管理AWS雲服務伺服器
-        架設RD開發或正式環境，LAMP(Linux + Apache + MySQL + PHP)
-        管理私人機房＆IDC機房(中華電信、四方電信)
-
-    現在工作上，開始精進有關程式方面的工作
-        工作環境使用Ubuntu Linux Desktop
-        撰寫 Shell Script自動化部屬程式
-        撰寫 PHP MySQL 備份程式
-        架設 Docker Gitea
-        管理 VMware ESXi Proxmox
-        管理 GCP 雲服務
-
-    下班後，會接一些案子
-    幫客戶處理架設環境，比如 GoDaddy VPS 架設LAMP環境，安裝SSL等...
-    處理客戶網站所需要的PHP套件及功能設定
-
-    經過這些年 部署系統 及 維運方面的工作，讓我開始對程式方面有很大的興趣
-    思考未來工作及職涯方向，決定朝工程師方向前進，開始買課程買書，下班後自修精進
-
-    目前下班時間，會上 Udemy 看 Ken Cen課程，及閱讀天龍書局購買PHP Mysql相關書籍
-    每個月固定參加後端工程師讀書會，除了自學以外，會請教朋友學習上的問題，多磨練自己理解能力
-
-    我的作品 『 購物車系統 』
-    GitHub : https://github.com/itricky/Portfolio
-</textarea>
-                            </blockquote>
+                        {{-- 自傳 --}}
+                        <h3>
+                            自傳
+                            <small class="text-muted">_autobiography</small>
+                        </h3>
+                        <div class="row g-0 carStyle" style="background-color: rgb(226, 225, 225)">
+                            <div class="container text-center">
+                                <blockquote>
+                                    <textarea class="form-control" id="autobiography" name="autobiography" rows="35" style="">{{ $userAutobiography_resault->autobiography ?? '' }}
+                            </textarea>
+                                </blockquote>
+                            </div>
                         </div>
-                    </div>
-                    <hr>
+                        <hr>
 
-                    {{-- 技能點數 --}}
-                    <h3>
+                        {{-- 技能點數 --}}
+                        <h3>
                         專業技能
-                        <small class="text-muted">With faded secondary text</small>
-                    </h3>
-                    <div class="row g-0 carStyle"  style="background-color: rgb(226, 225, 225)">
-                        <div class="container">
-<blockquote>
-<textarea class="form-control" id="exampleFormControlTextarea1"
-    rows="3" style="resize:none; height:150px; overflow-y:hidden "
-        onkeyup="autogrow(this);" readonly>
-一、程式
-PHP 、 MySQL 、 HTML 、 CSS 、 Javascript 、 JQuery 、 Ajax
-二、系統環境
-LAMP ( Linux + Apache + MySQL + PHP )
-HTTP、HTTPS、SSL、Docker、Git、Linux ( Ubuntu CentOS )
-</textarea>
-</blockquote>
+                        <small class="text-muted">_Professional Skill</small>
+                        </h3>
+                        <div class="row g-0 carStyle" style="background-color: rgb(226, 225, 225)">
+                            <div class="container">
+                                <blockquote>
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                                        style="resize:none; height:150px; overflow-y:hidden " onkeyup="autogrow(this);" readonly>
+                                一、程式
+                                PHP 、 MySQL 、 HTML 、 CSS 、 Javascript 、 JQuery 、 Ajax
+                                二、系統環境
+                                LAMP ( Linux + Apache + MySQL + PHP )
+                                HTTP、HTTPS、SSL、Docker、Git、Linux ( Ubuntu CentOS )
+                                </textarea>
+                                </blockquote>
+                            </div>
                         </div>
-                    </div>
                     <hr>
-                </div>
+                    </div>
+                    <input type="submit" class="btn btn-outline-success" value="送出">
+                </form>
             </div>
-        {{-- </div> --}}
+        </div>
     </div>
-</div>
 
-<script type="text/javascript">
-
-function autogrow(textarea){
-    var adjustedHeight=textarea.clientHeight;
-
-    adjustedHeight=Math.max(textarea.scrollHeight,adjustedHeight);
-    if (adjustedHeight>textarea.clientHeight){
-        textarea.style.height=adjustedHeight+'px';
-    }
-}
-</script>
+    <script></script>
 @endsection

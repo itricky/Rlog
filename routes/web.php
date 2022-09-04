@@ -21,10 +21,11 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', home::class);
+Route::post('home', [home::class, 'homeSubmit']);
+
 
 
 
 // image.upload
-
-Route::post('images/upload', upload::class);
+// Route::post('images/upload', upload::class);
 // Route::post('images/upload', [upload::class, 'test']);
