@@ -158,24 +158,18 @@
 
                         {{-- 技能點數 --}}
                         <h3>
-                        專業技能
-                        <small class="text-muted">_Professional Skill</small>
+                            專業技能
+                            <small class="text-muted">_Professional Skill</small>
                         </h3>
                         <div class="row g-0 carStyle" style="background-color: rgb(226, 225, 225)">
                             <div class="container">
                                 <blockquote>
-                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
-                                        style="resize:none; height:150px; overflow-y:hidden " onkeyup="autogrow(this);" readonly>
-                                一、程式
-                                PHP 、 MySQL 、 HTML 、 CSS 、 Javascript 、 JQuery 、 Ajax
-                                二、系統環境
-                                LAMP ( Linux + Apache + MySQL + PHP )
-                                HTTP、HTTPS、SSL、Docker、Git、Linux ( Ubuntu CentOS )
-                                </textarea>
+                                    <textarea class="form-control" id="skill" name="skill" rows="3"
+                                        style="resize:none; height:150px; overflow-y:hidden">{{ $userSkill_resault->skill ?? ""}}</textarea>
                                 </blockquote>
                             </div>
                         </div>
-                    <hr>
+                        <hr>
                     </div>
                     <input type="submit" class="btn btn-outline-success" value="送出">
                 </form>
