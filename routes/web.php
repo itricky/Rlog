@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\webtest;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,3 +27,5 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+Route::get('/123', [webtest::class, 'test']);
