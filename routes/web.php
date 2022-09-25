@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\home;
+use App\Http\Controllers\upload;
 use App\Http\Controllers\webtest;
 use Illuminate\Support\Facades\Route;
 
@@ -14,9 +16,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+
+Route::get('/', home::class);
+Route::post('home', [home::class, 'homeSubmit']);
+
+
+
+
+// image.upload
+// Route::post('images/upload', upload::class);
+// Route::post('images/upload', [upload::class, 'test']);
 
 Route::middleware([
     'auth:sanctum',
