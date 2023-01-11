@@ -1,8 +1,10 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
+            {{-- {{ __('Dashboard') }} --}}
+            <a  class="font-semibold text-xl text-gray-800 leading-tight" href="{{ url('/')}}">首頁</a>
         </h2>
+
     </x-slot>
 
     <div class="py-12">

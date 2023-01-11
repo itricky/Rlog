@@ -44,7 +44,9 @@
                             <div class="container text-center">
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <img class="image" src="{{ asset('/images/IMG_001.jpg') }}" alt="大頭照">
+                                        @isset($userInfo_resault->name)
+                                            <img class="image" src="{{ asset('/images/IMG_001.jpg') }}" alt="大頭照">
+                                        @endisset
                                     </div>
                                     <div class="col">
                                         <p style="margin-top: 50px;">
@@ -85,12 +87,12 @@
                                 <blockquote>
                                     <div class="position-relative">
                                         <div class="position-absolute top-0 end-0">
-                                            {{ $userJobInfo_resault->job_start_day }}
-                                            @if ($userJobInfo_resault->job_start_day && $userJobInfo_resault->job_end_day)
-                                                ~
-                                            @endif
-                                            {{ $userJobInfo_resault->job_end_day }}
-                                            {{ $userJobInfo_resault->job_status == 'y' ? '在職中' : '' }}
+                                            {{ $userJobInfo_resault->job_start_day ?? '' }}
+                                            {{-- @if ($userJobInfo_resault->job_start_day && $userJobInfo_resault->job_end_day) --}}
+                                            ~
+                                            {{-- @endif --}}
+                                            {{ $userJobInfo_resault->job_end_day ?? '' }}
+                                            {{ (isset($userJobInfo_resault) && $userJobInfo_resault->job_status == 'y' )? '在職中' : '' }}
                                         </div>
                                     </div><br>
 
@@ -98,7 +100,7 @@
                                         <label for="company_name" class="col-sm-1 col-form-label">公司名稱</label>
                                         <div class="col-sm-3">
                                             <input type="text" class="form-control" id="company_name" name="company_name"
-                                                value="{{ $userJobInfo_resault->company_name }}">
+                                                value="{{ $userJobInfo_resault->company_name ?? '' }}">
                                         </div>
                                     </div>
 
@@ -106,7 +108,7 @@
                                         <label for="job_title" class="col-sm-1 col-form-label">職稱</label>
                                         <div class="col-sm-3">
                                             <input type="text" class="form-control" id="job_title" name="job_title"
-                                                value="{{ $userJobInfo_resault->job_title }}">
+                                                value="{{ $userJobInfo_resault->job_title ?? '' }}">
                                         </div>
                                     </div>
 
@@ -114,17 +116,17 @@
                                     <div class="input-group mb-3">
                                         <input type="date" name="job_start_day" class="form-control"
                                             placeholder="Username" aria-label="Username"
-                                            value="{{ $userJobInfo_resault->job_start_day }}">
+                                            value="{{ $userJobInfo_resault->job_start_day ?? '' }}">
                                         <span class="input-group-text"> ~ </span>
                                         <input type="date" name="job_end_day" class="form-control" placeholder="Server"
-                                            aria-label="Server" value="{{ $userJobInfo_resault->job_end_day }}">
+                                            aria-label="Server" value="{{ $userJobInfo_resault->job_end_day ?? '' }}">
                                     </div>
 
                                     <div class="input-group mb-3">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" id="job_status"
                                                 name="job_status"
-                                                {{ $userJobInfo_resault->job_status == 'y' ? 'checked' : '' }}>
+                                                {{ isset($userJobInfo_resault) && $userJobInfo_resault->job_status == 'y' ? 'checked' : '' }}>
                                             <label class="form-check-label" for="gridCheck">
                                                 在職中
                                             </label>
@@ -133,7 +135,7 @@
 
                                     <div class="mb-3">
                                         <label for="job_description" class="form-label">工作內容</label>
-                                        <textarea class="form-control text-capitalize" id="job_description" name="job_description" rows="7">{{ $userJobInfo_resault->job_description }}</textarea>
+                                        <textarea class="form-control text-capitalize" id="job_description" name="job_description" rows="7">{{ $userJobInfo_resault->job_description ?? '' }}</textarea>
                                     </div>
 
                                 </blockquote>
@@ -165,13 +167,17 @@
                             <div class="container">
                                 <blockquote>
                                     <textarea class="form-control" id="skill" name="skill" rows="3"
-                                        style="resize:none; height:150px; overflow-y:hidden">{{ $userSkill_resault->skill ?? ""}}</textarea>
+                                        style="resize:none; height:150px; overflow-y:hidden">{{ $userSkill_resault->skill ?? '' }}</textarea>
                                 </blockquote>
                             </div>
                         </div>
                         <hr>
                     </div>
-                    <input type="submit" class="btn btn-outline-success" value="送出">
+
+                    @isset($login)
+                        <input type="submit" class="btn btn-outline-success" value="送出">
+                    @endisset
+
                 </form>
             </div>
         </div>

@@ -12,7 +12,6 @@ class webtest extends Controller
 
     public function test()
     {
-        // dd(session('drivers'));
         $user_resault = Auth::user();
         if(is_null($user_resault)){
             return redirect()->route('login');
