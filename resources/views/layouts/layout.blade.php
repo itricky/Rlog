@@ -6,11 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title')</title>
+    @vite('resources/css/app.css')
     @vite('resources/css/layout.css')
-    @vite('resources/js/layout.js')
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/layout.css') }}" />
-    <script src="{{ asset('/js/jquery.js') }}"></script>
+    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('css/layout.css') }}" /> --}}
 </head>
+<style>
+    body {
+        cursor: url(https://ani.cursors-4u.net/games/gam-16/gam1537.cur), auto !important
+    }
+</style>
 
 <body class="bg-dark">
     <header class="p-3 bg-dark text-white">
@@ -18,7 +22,7 @@
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
 
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                    <li><a href="{{ url('/') }}" class="nav-link px-2  text-white">首頁</a></li>
+                    <li><a href="{{ url('/') }}" class="nav-link px-2 text-white"><font size="6">首頁</font></a></li>
                     {{-- <li><a href="{{url('/')}}" class="nav-link px-2 text-secondary">首頁</a></li> --}}
                     {{-- <li><a href="#" class="nav-link px-2 text-white">Features</a></li> --}}
                     {{-- <li><a href="#" class="nav-link px-2 text-white">Pricing</a></li> --}}
@@ -63,7 +67,12 @@
 
     @include('layouts.footer')
 </body>
-<script>
+@vite('resources/js/app.js')
+@vite('resources/js/layout.js')
+{{-- <script src="{{ asset('/js/jquery.js') }}"></script> --}}
+{{-- <script src="{{ asset('suite/sweetalert2/dist/sweetalert2.all.js') }}"></script> --}}
+
+<script type="module">
     $(document).ready(function() {
         $("button").click(function() {
             $("#logOut").submit();
@@ -71,4 +80,17 @@
     });
 </script>
 
+<script type="module">
+
+// sweetalert2，測試
+    // Swal.fire({
+    //     position: 'top-end',
+    //     icon: 'success',
+    //     title: 'Your work has been saved',
+    //     showConfirmButton: false,
+    //     timer: 1500
+    // })
+
+</script>
+    @stack('scripts')
 </html>

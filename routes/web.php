@@ -2,8 +2,8 @@
 
 use App\Http\Controllers\home;
 use App\Http\Controllers\webtest;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,9 +16,12 @@ use Illuminate\Support\Facades\Artisan;
 |
  */
 
-Route::get('/', home::class);
-Route::post('home', [home::class, 'homeSubmit']);
+// 測試
+Route::get('/123', [webtest::class, 'test']);
 
+Route::get('/', home::class)->name('/');
+
+Route::post('home', [home::class, 'homeSubmit']);
 
 Route::middleware([
     'auth:sanctum',
@@ -30,11 +33,16 @@ Route::middleware([
     })->name('dashboard');
 });
 
-Route::get('/123', [webtest::class, 'test']);
-
-Route::get('/clear', function() {
-
+// 清除快取
+Route::get('/clear', function () {
     Artisan::call('cache:clear');
-
     return "已經清除快取";
+});
+
+// 例外
+Route::fallback( function () {
+    return to_route('/');
+    // return redirect()->to_route('home');
+    // HTTP_NOT_FOUND
+    // return abort(404);
 });

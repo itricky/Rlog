@@ -6,8 +6,8 @@
     <style type="text/css">
         .image {
             margin-top: 50px;
-            width: 200px;
-            height: 240px;
+            width: 230px;
+            height: 250px;
             border-radius: 20px;
         }
 
@@ -36,39 +36,102 @@
     <div class="container-fluid" style="min-height: 1024px; min-width:300px; margin-top: 25px; ">
         <div class="d-flex justify-content-center">
             <div class="container w-80 p-3">
-                <form action="{{ url('home') }}" method="post">
+                <form action="{{ url('home') }}" method="POST" enctype="multipart/form-data" id="frmProduct">
                     <div class="card shadow-lg p-3 mb-5 bg-white rounded" style="mix-width: 100%;">
                         @csrf
                         {{-- 自介紹 --}}
                         <div class="row g-0" style="background-color: rgb(179, 168, 168);">
                             <div class="container text-center">
                                 <div class="row">
-                                    <div class="col-md-4">
-                                        @isset($userInfo_resault->name)
-                                            <img class="image" src="{{ asset('/images/IMG_001.jpg') }}" alt="大頭照">
-                                        @endisset
+                                    <div class="col-md-3">
+                                        <div class="mb-1 row">
+                                            @if (isset($userInfo_resault->headshot) &&
+                                                    $userInfo_resault->headshot &&
+                                                    is_file(public_path('/images/' . $userInfo_resault->headshot)))
+                                                <img style="margin: 25% 25% 0 25%; " class="image"
+                                                    src="{{ asset('/images/' . $userInfo_resault->headshot) }}"
+                                                    alt="大頭照">
+                                                <br>
+                                            @endif
+                                        </div>
+                                        <div class="mb-1 row col-sm-9">
+                                            <input
+                                                style="margin-top: {{ isset($userInfo_resault->name) ? '1em' : '9.4em' }}; margin-left: 6.9em; width: 200px;"
+                                                accept="image/*" name="headshot" class="form-control form-control-sm"
+                                                id="headshot" type="file" @disabled(!isset($userInfo_resault->name))>
+                                        </div>
+                                        <div style="visibility:hidden" class="toSubmit">
+                                            <input type="submit" class="aa">
+                                        </div>
                                     </div>
-                                    <div class="col">
-                                        <p style="margin-top: 50px;">
+
+                                    {{-- <div class="col">
+
+                                        <p style=" margin-top: 50px; ">
                                         <h1>
                                             <i class="bi bi-heart-pulse-fill"></i>&nbsp;
                                             {{ $userInfo_resault->name ?? '' }}
                                         </h1>
+                                        </p>
+
                                         <p style=" text-align:left; margin-left: 50px;">
                                             <span>姓名： </span><input type="text" id="name" name="name"
                                                 value="{{ $userInfo_resault->name ?? '' }}">
                                         </p>
+
                                         <p style=" text-align:left; margin-left: 50px;">
                                             <span>電話： </span><input type="text" id="phone" name="phone"
                                                 value="{{ $userInfo_resault->phone ?? '' }}">
                                         </p>
+
                                         <p style=" text-align:left; margin-left: 50px;">
                                             <span>地址：</span><input type="text" id="address" name="address"
-                                                style="width: 70%" value="{{ $userInfo_resault->address ?? '' }}">
+                                                style="width: 60%" value="{{ $userInfo_resault->address ?? '' }}">
                                         </p>
+
                                         <textarea id="description" name="description" cols="40" rows="5"
                                             style="height:80px; max-width:85%; width:80%; resize:none;">{{ $userInfo_resault->description ?? '' }}</textarea>
-                                        </p>
+
+                                    </div> --}}
+
+                                    <div class="col">
+                                        <div class="mb-1 row" style=" margin-top: 50px; ">
+                                            <h1>
+                                                <i class="bi bi-heart-pulse-fill"></i>&nbsp;
+                                                {{ $userInfo_resault->name ?? '' }}
+                                            </h1>
+                                        </div>
+
+                                        <div class="mb-2 row">
+                                            <label for="name" class="col-sm-2 col-form-label">姓名</label>
+                                            <div class="col-sm-3">
+                                                <input type="text" readonly="" class="form-control" id="name"
+                                                    name="name" value="{{ $userInfo_resault->name ?? '' }}">
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-2 row">
+                                            <label for="phone" class="col-sm-2 col-form-label">電話</label>
+                                            <div class="col-sm-3">
+                                                <input type="text" readonly="" class="form-control" id="phone"
+                                                    name="phone" value="{{ $userInfo_resault->phone ?? '' }}">
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-2 row">
+                                            <label for="phone" class="col-sm-2 col-form-label">地址</label>
+                                            <div class="col-sm-5">
+                                                <input type="text" readonly="" class="form-control" id="address"
+                                                    name="address" value="{{ $userInfo_resault->address ?? '' }}">
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-1 row">
+                                            <label for="description" class="col-sm-2 col-form-label"></label>
+                                            <div class="col-sm-7">
+                                                <textarea class="form-control" id="description" name="description" rows="3">{{ $userInfo_resault->description ?? '' }}</textarea>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <br><br>
@@ -88,11 +151,11 @@
                                     <div class="position-relative">
                                         <div class="position-absolute top-0 end-0">
                                             {{ $userJobInfo_resault->job_start_day ?? '' }}
-                                            {{-- @if ($userJobInfo_resault->job_start_day && $userJobInfo_resault->job_end_day) --}}
-                                            ~
-                                            {{-- @endif --}}
-                                            {{ $userJobInfo_resault->job_end_day ?? '' }}
-                                            {{ (isset($userJobInfo_resault) && $userJobInfo_resault->job_status == 'y' )? '在職中' : '' }}
+                                            @if (isset($userJobInfo_resault) && $userJobInfo_resault->job_status == 'y')
+                                                ~ {{ date('Y-m-d') }}
+                                            @elseif (isset($userJobInfo_resault->job_end_day))
+                                                ~ {{ $userJobInfo_resault->job_end_day }}
+                                            @endif
                                         </div>
                                     </div><br>
 
@@ -118,8 +181,9 @@
                                             placeholder="Username" aria-label="Username"
                                             value="{{ $userJobInfo_resault->job_start_day ?? '' }}">
                                         <span class="input-group-text"> ~ </span>
-                                        <input type="date" name="job_end_day" class="form-control" placeholder="Server"
-                                            aria-label="Server" value="{{ $userJobInfo_resault->job_end_day ?? '' }}">
+                                        <input type="date" name="job_end_day" class="form-control"
+                                            placeholder="Server" aria-label="Server"
+                                            value="{{ $userJobInfo_resault->job_end_day ?? '' }}">
                                     </div>
 
                                     <div class="input-group mb-3">
@@ -175,7 +239,7 @@
                     </div>
 
                     @isset($login)
-                        <input type="submit" class="btn btn-outline-success" value="送出">
+                        <input type="button" class="btn btn-outline-success" value="送出" onclick="subAlert()">
                     @endisset
 
                 </form>
@@ -183,5 +247,9 @@
         </div>
     </div>
 
-    <script></script>
+@push('scripts')
+    <script type="text/javascript" src="{{ asset('js/home.js') }}"></script>
+@endpush
+
 @endsection
+

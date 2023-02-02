@@ -7,6 +7,9 @@
     <title>Document</title>
 </head>
 <body>
-test
+     {{ __('welcome.welcome') }}
+     {{-- trans('auth.failed') --}}
+     {{-- "accepted": "必須接受 :attribute。", --}}
+     {{-- {{ __('login')['email'] }} --}}
 </body>
 </html>
